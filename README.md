@@ -1,4 +1,4 @@
-# Example of Go microservice with a Helm chart
+# Go microservices deployed to Kubernetes with Helm subcharts
 
 ## Purpose
 
@@ -66,12 +66,9 @@ https://github.com/powerman/go-monolith-example
 https://github.com/getkin/kin-openapi  
 
 ### Docker
-https://docs.docker.com/develop/develop-images/multistage-build/
+https://docs.docker.com/develop/develop-images/multistage-build/  
 https://medium.com/@lizrice/non-privileged-containers-based-on-the-scratch-image-a80105d6d341  
 
 ## TODO
 - add ingress
-- add more services    
-- add attributes service    
-- add key access service  
-- add reference comment throughout code, same under References  
+- add more services to support popular pet store example 
