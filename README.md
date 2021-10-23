@@ -12,7 +12,7 @@ add key access service
     - see https://docs.docker.com/get-docker/
 
 - Install kubectl
-    - On macOs via Homebrew: `brew install kubectl`
+    - On macOS via Homebrew: `brew install kubectl`
     - Others see https://kubernetes.io/docs/tasks/tools/
 
 - Install kind
