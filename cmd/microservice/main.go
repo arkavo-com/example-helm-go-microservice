@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	"example-helm-go-microservice/pkg/pet"
 )
 
 func main() {
@@ -15,11 +17,12 @@ func main() {
 	signal.Notify(stop, os.Interrupt)
 	// server
 	server := http.Server{
-		Addr:         "0.0.0.0:80",
+		Addr:         "0.0.0.0:8080",
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  120 * time.Second,
 	}
+	http.HandleFunc("/", pet.Handler)
 	go func() {
 		log.Printf("listening on http://%s", server.Addr)
 		log.Printf(os.Getenv("SERVICE"))

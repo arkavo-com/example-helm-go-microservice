@@ -1,10 +1,13 @@
 # Example of Go microservice with a Helm chart
 
-## TODO
-add ingress
-add more services
-add attributes service
-add key access service
+## Purpose
+
+Showcase good practices when developing for Kubernetes
+
+Topics
+- Helm chart with subcharts
+- Multi-stage Dockerfile for build, testing, and deployment
+- Fast developer workflow
 
 ## Prerequisites
 
@@ -15,11 +18,11 @@ add key access service
     - On macOS via Homebrew: `brew install kubectl`
     - Others see https://kubernetes.io/docs/tasks/tools/
 
-- Install kind
-    - On macOS via Homebrew: `brew install kind`
-    - Others see https://kind.sigs.k8s.io/docs/user/quick-start/#installation
+- Install minikube
+    - On macOS via Homebrew: `brew install minikube`
+    - Others see https://minikube.sigs.k8s.io/docs/start/
 
-- Install helm
+- Install Helm
     - On macOS via Homebrew: `brew install helm`
     - Others see https://helm.sh/docs/intro/install/
 
@@ -27,11 +30,13 @@ add key access service
     - On macOS via Homebrew: `brew install tilt-dev/tap/tilt`
     - Others see https://docs.tilt.dev/install.html
 
+- Install ctlptl
+  - On macOS via Homebrew: `brew install tilt-dev/tap/ctlptl`
+  - Others see https://github.com/kubernetes/examples/blob/master/guidelines.md
+
 ## Development
 
 ### Create cluster
-
-`kind create cluster --name ex`
 
 create
 ```shell
@@ -43,11 +48,6 @@ delete
 ctlptl delete cluster minikube
 ```
 
-### tilt
-```shell
-tilt --debug --verbose up
-```
-
 ### Start services
 
 ```shell
@@ -55,7 +55,23 @@ tilt up
 ```
 
 ## References
-https://github.com/powerman/go-monolith-example
-https://github.com/getkin/kin-openapi
-https://faun.pub/helm-chart-how-to-create-helm-charts-from-kubernetes-k8s-yaml-from-scratch-d64901e36850
-https://medium.com/@lizrice/non-privileged-containers-based-on-the-scratch-image-a80105d6d341
+
+### Helm
+https://helm.sh/docs/chart_template_guide/subcharts_and_globals/  
+https://faun.pub/helm-chart-how-to-create-helm-charts-from-kubernetes-k8s-yaml-from-scratch-d64901e36850  
+https://github.com/kubernetes/examples/blob/master/guidelines.md  
+
+### Go
+https://github.com/powerman/go-monolith-example  
+https://github.com/getkin/kin-openapi  
+
+### Docker
+https://docs.docker.com/develop/develop-images/multistage-build/
+https://medium.com/@lizrice/non-privileged-containers-based-on-the-scratch-image-a80105d6d341  
+
+## TODO
+- add ingress
+- add more services    
+- add attributes service    
+- add key access service  
+- add reference comment throughout code, same under References  
