@@ -1,0 +1,9 @@
+image:
+  repository: microservice
+replicaCount: 1
+ingress:
+  enabled: false
+service:
+  type: ClusterIP
+config:
+  message: "Hello, World!"
