@@ -40,12 +40,25 @@ Topics
 
 create
 ```shell
-ctlptl create cluster minikube --registry=ctlptl-registry --kubernetes-version=v1.22.0
+ctlptl create cluster minikube --registry=ctlptl-registry --kubernetes-version=v1.22.2
 ```
 
 delete
 ```shell
 ctlptl delete cluster minikube
+```
+
+### Start database
+
+```shell
+mkdir -p data
+docker run \
+    --detach \
+    --publish 0.0.0.0:5432:5432 \
+    --volume data:/var/lib/postgresql/data \
+    --env POSTGRES_PASSWORD=mysecretpassword \
+    --env PGDATA=/var/lib/postgresql/data/pgdata \
+    postgres
 ```
 
 ### Start services
@@ -69,6 +82,28 @@ https://github.com/getkin/kin-openapi
 https://docs.docker.com/develop/develop-images/multistage-build/  
 https://medium.com/@lizrice/non-privileged-containers-based-on-the-scratch-image-a80105d6d341  
 
+### Tilt
+https://dev.to/ndrean/rails-on-kubernetes-with-minikube-and-tilt-25ka  
+
+### PostgreSQL
+https://dev.to/kushagra_mehta/postgresql-with-go-in-2021-3dfg  
+https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach/24326540#24326540  
+
+### minikube
+https://minikube.sigs.k8s.io/docs/handbook/host-access/  
+
 ## TODO
 - add ingress
 - add more services to support popular pet store example 
+
+## Troubleshooting
+
+apt-get update -y
+apt-get install -y netcat
+nc -vz host.minikube.internal 5432
+
+helm install postgresql bitnami/postgresql
+
+apt-get install postgresql-client
+pg_isready --dbname=postgres --host=host.minikube.internal --port=5432 --username=postgres
+pg_isready --dbname=postgres --host=ex-postgresql --port=5432 --username=postgres

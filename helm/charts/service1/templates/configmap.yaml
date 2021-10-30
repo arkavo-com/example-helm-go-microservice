@@ -5,4 +5,7 @@ metadata:
   name: {{ .Chart.Name }}-configmap
 data:
   SERVICE: {{ .Chart.Name }}
-  MESSAGE: {{ .Values.config.message }}
+  POSTGRES_HOST: {{ .Values.postgres.host }}
+  POSTGRES_DATABASE: {{ .Values.postgres.database }}
+  POSTGRES_SCHEMA: {{ .Values.postgres.schema }}
+  POSTGRES_USER: {{ .Values.postgres.user }}

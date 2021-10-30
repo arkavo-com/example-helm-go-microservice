@@ -1,5 +1,9 @@
 service1:
   ingress:
     enabled: true
-  config:
-    message: "Bye, World!"
+  postgres:
+    host: host.docker.internal
+    port: 5432
+    database: postgres
+    schema: public
+    user: postgres

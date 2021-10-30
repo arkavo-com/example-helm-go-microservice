@@ -2,7 +2,7 @@
 # reference https://docs.docker.com/develop/develop-images/multistage-build/
 ARG GO_VERSION=latest
 
-# stage builder
+# builder - executable for deployment
 # reference https://hub.docker.com/_/golang
 FROM golang:$GO_VERSION as builder
 # reference https://medium.com/@lizrice/non-privileged-containers-based-on-the-scratch-image-a80105d6d341
@@ -13,7 +13,7 @@ COPY cmd/ cmd/
 COPY pkg/ pkg/
 RUN CGO_ENABLED=0 GOOS=linux go build -v -a -installsuffix cgo -o . ./...
 
-# stage tester
+# tester
 FROM golang:$GO_VERSION as tester
 WORKDIR /test/
 COPY go.* .
@@ -28,12 +28,18 @@ RUN go test -bench=. -benchmem ./...
 # race condition
 RUN CGO_ENABLED=1 GOOS=linux go build -v -a -race -installsuffix cgo -o . ./...
 
-# stage runner
-FROM scratch as runner
+# server-debug - root
+FROM ubuntu:latest as server-debug
+EXPOSE 8080
+ENTRYPOINT ["/microservice"]
+ENV SERVICE "default"
+COPY --from=builder /build/microservice /
+
+# server - production
+FROM scratch as server
 USER scratchuser
 EXPOSE 8080
 ENTRYPOINT ["/microservice"]
 ENV SERVICE "default"
-ENV MESSAGE ""
 COPY --from=builder /build/microservice /
 COPY --from=builder /etc/passwd /etc/passwd
